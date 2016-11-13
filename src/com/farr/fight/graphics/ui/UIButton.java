@@ -13,6 +13,7 @@ import com.farr.Events.types.MouseReleasedEvent;
 import com.farr.fight.input.Mouse;
 import com.farr.fight.util.Vector2i;
 
+//TODO make buttons and other "interactable" UI elements implement UIFocusable
 public class UIButton extends UIComponent {
 	
 	private UIButtonListener buttonListener;
@@ -70,7 +71,7 @@ public class UIButton extends UIComponent {
 	}
 	
 	
-	
+	//TODO Bad practice here, to have two init methods.
 	private void init() {
 		setColor(0xAAAAAA);
 		
@@ -117,7 +118,7 @@ public class UIButton extends UIComponent {
 		}
 	}
 
-	public void onMouseMove(MouseMovedEvent e) {
+	public boolean onMouseMove(MouseMovedEvent e) {
 		
 		boolean mouseInside = rect.contains(new Point(e.getX(), e.getY()));
 		
@@ -132,20 +133,23 @@ public class UIButton extends UIComponent {
 			ignorePressed = true;
 			inside = false;
 		}
+		return mouseInside;
 	}
 	
 	//TODO *IMPORTANT* change button listener to also accept event parameters, so we can determine which button was pressed, and other stuff
-	public void onMousePress(MousePressedEvent e) {
+	public boolean onMousePress(MousePressedEvent e) {
 		if (inside) {
 			ignorePressed = false;
 			buttonListener.pressed(this);
 		}
+		return inside;
 	}
 	
-	public void onMouseRelease(MouseReleasedEvent e) {
+	public boolean onMouseRelease(MouseReleasedEvent e) {
 		if (inside && !ignorePressed) {
 			buttonListener.released(this);
 		}
+		return inside;
 	}
 	
 	public void update() {

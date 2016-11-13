@@ -14,10 +14,11 @@ import javax.swing.JFrame;
 
 import com.farr.Events.Event;
 import com.farr.Events.EventListener;
-import com.farr.Events.Layer;
+import com.farr.Events.BlockingLayer;
 import com.farr.fight.entity.mob.player.Mage;
 import com.farr.fight.entity.mob.player.Player;
 import com.farr.fight.graphics.ui.UIButton;
+import com.farr.fight.graphics.ui.UITextField;
 import com.farr.fight.input.Focus;
 import com.farr.fight.input.Keyboard;
 import com.farr.fight.input.Mouse;
@@ -40,7 +41,7 @@ public class Game extends Canvas implements Runnable, EventListener {
 	public static int gameWidth = 300 * scale;
 	public static int gameHeight = 188 * scale;
 	
-	public List<Layer> layerStack = new ArrayList<>();
+	public List<BlockingLayer> layerStack = new ArrayList<>();
 	public static MenuLayer mainMenu;
 	public static MenuLayer optionMenu;
 	private Level testLevel;
@@ -82,6 +83,12 @@ public class Game extends Canvas implements Runnable, EventListener {
 		mainMenu.addComponent(new UIButton(new Vector2i(300,300), new Vector2i(42*3,10*3), () -> {removeLayer(mainMenu); addLayer(testLevel);}, "Start"));
 		mainMenu.addComponent(new UIButton(new Vector2i(300,350), new Vector2i(42*3,10*3), () -> {connectToServer();}, "Connect"));
 		
+		//TODO have the client connection and all client related stuff running on a separate thread. Or atleast have a way to cancel out of Connecting if it isn't connecting..
+		//TODO Have the client listen on a separate thread that can spawn events to influence the main program.
+		
+		UITextField tf = new UITextField(new Vector2i(450,250), 150, "Enter text here");
+		mainMenu.addComponent(tf);
+		
 		optionMenu = new MenuLayer(backgroundTransparent, this);
 		optionMenu.addComponent(new UIButton(new Vector2i(350,300), new Vector2i(72*3, 10*3), () -> gotoMain(), "Return to main"));
 		
@@ -109,7 +116,7 @@ public class Game extends Canvas implements Runnable, EventListener {
 	
 	//TODO update to let players choose ip
 	public void connectToServer() {
-		client = new Client("localhost", 25564);
+		client = new Client("24.235.77.50", 25564);
 		if (!client.connect()) {
 			//TODO connection failed
 			System.out.println("Failed to connect");
@@ -228,12 +235,12 @@ public class Game extends Canvas implements Runnable, EventListener {
 		
 	}
 	
-	public void addLayer(Layer l) {
+	public void addLayer(BlockingLayer l) {
 		layerStack.add(l);
 		l.init(layerStack);
 		
 	}
-	public void removeLayer(Layer l) {
+	public void removeLayer(BlockingLayer l) {
 		layerStack.remove(l);
 	}
 	public void removeLayer(int index) {

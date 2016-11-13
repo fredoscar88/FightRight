@@ -8,7 +8,7 @@ import java.util.List;
 
 import com.farr.Events.Event;
 import com.farr.Events.EventDispatcher;
-import com.farr.Events.Layer;
+import com.farr.Events.BlockingLayer;
 import com.farr.Events.types.KeyPressedEvent;
 import com.farr.Events.types.KeyReleasedEvent;
 import com.farr.Events.types.MousePressedEvent;
@@ -20,7 +20,7 @@ import com.farr.fight.level.Tile.Tile;
 import com.farr.fight.net.NetPlayer;
 import com.farr.fight.util.ImageUtils;
 
-public class Level implements Layer {
+public class Level implements BlockingLayer {
 	
 	//TODO make abstract
 	
@@ -179,7 +179,7 @@ public class Level implements Layer {
 	}
 
 	@Override
-	public void init(List<Layer> l) {
+	public void init(List<BlockingLayer> l) {
 		
 	}
 	

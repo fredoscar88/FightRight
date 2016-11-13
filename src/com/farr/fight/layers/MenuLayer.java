@@ -7,14 +7,14 @@ import java.util.List;
 import com.farr.Events.Event;
 import com.farr.Events.Event.Type;
 import com.farr.Events.EventDispatcher;
-import com.farr.Events.Layer;
+import com.farr.Events.BlockingLayer;
 import com.farr.Events.types.FocusLostEvent;
 import com.farr.fight.Game;
 import com.farr.fight.graphics.ui.UIComponent;
 import com.farr.fight.graphics.ui.UIPanel;
 import com.farr.fight.util.Vector2i;
 
-public class MenuLayer implements Layer {
+public class MenuLayer implements BlockingLayer {
 
 	//Static image that I cba to animate
 	BufferedImage backgroundImage;
@@ -58,7 +58,7 @@ public class MenuLayer implements Layer {
 		return true;
 	}
 
-	public void init(List<Layer> l) {
+	public void init(List<BlockingLayer> l) {
 		
 	}
 

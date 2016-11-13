@@ -9,6 +9,7 @@ import com.farr.Events.Event;
 import com.farr.Events.Event.Type;
 import com.farr.Events.EventDispatcher;
 import com.farr.Events.Layer;
+import com.farr.Events.BlockingLayer;
 import com.farr.Events.types.KeyPressedEvent;
 import com.farr.Events.types.KeyReleasedEvent;
 import com.farr.Events.types.MouseMovedEvent;
@@ -16,9 +17,10 @@ import com.farr.Events.types.MousePressedEvent;
 import com.farr.Events.types.MouseReleasedEvent;
 import com.farr.fight.util.Vector2i;
 
-public class UIPanel extends UIComponent implements UILayer {
+public class UIPanel extends UIComponent implements Layer {
 	
 	private List<UIComponent> components = new ArrayList<UIComponent>();
+	private List<UIFocusable> focusableComponents = new ArrayList<>();
 	
 	//private Color color;
 	
@@ -40,6 +42,18 @@ public class UIPanel extends UIComponent implements UILayer {
 		c.setOffset(position);	//Should only need to do this once, or whenever we update position. So I'm going to go ahead and add in a setPosition, that incorporates this, so I don't forget
 	}
 	
+	public void addFocusable(UIFocusable c) {
+		focusableComponents.add(c);
+	}
+	
+	public void setFocus(UIFocusable f) {
+		for (UIFocusable c : focusableComponents) {
+			c.removeFocus();
+			if (c.equals(f))
+				c.giveFocus();
+		}
+	}
+	
 	public void setPosition(Vector2i position) {
 		this.position = position;
 		for (UIComponent component : components) {	//Hey now we're thinking like programmers
@@ -47,34 +61,44 @@ public class UIPanel extends UIComponent implements UILayer {
 		}
 	}
 	
-	public void onMousePress(MousePressedEvent e) {
+	public boolean onMousePress(MousePressedEvent e) {
 		for (UIComponent component : components) {
-			component.onMousePress(e);
+			if (component.onMousePress(e))
+				return true;
 		}
+		return false;
 	}
 	
-	public void onMouseRelease(MouseReleasedEvent e) {
+	public boolean onMouseRelease(MouseReleasedEvent e) {
 		for (UIComponent component : components) {
-			component.onMouseRelease(e);
+			if (component.onMouseRelease(e))
+				return true;
 		}
+		return false;
 	}
 	
-	public void onMouseMove(MouseMovedEvent e) {
+	public boolean onMouseMove(MouseMovedEvent e) {
 		for (UIComponent component : components) {
-			component.onMouseMove(e);
+			if (component.onMouseMove(e))
+				return true;
 		}
+		return false;
 	}
 	
-	public void onKeyPress(KeyPressedEvent e) {
+	public boolean onKeyPress(KeyPressedEvent e) {
 		for (UIComponent component : components) {
-			component.onKeyPress(e);
+			if (component.onKeyPress(e))
+				return true;
 		}
+		return false;
 	}
 	
-	public void onKeyRelease(KeyReleasedEvent e) {
+	public boolean onKeyRelease(KeyReleasedEvent e) {
 		for (UIComponent component : components) {
-			component.onKeyRelease(e);
+			if (component.onKeyRelease(e))
+				return true;
 		}
+		return false;
 	}
 	
 	public void update() {
@@ -102,7 +126,7 @@ public class UIPanel extends UIComponent implements UILayer {
 		dispatcher.dispatch(Type.KEY_RELEASED, (Event e) -> onKeyRelease((KeyReleasedEvent) e));
 	}
 
-	public void init(List<Layer> l) {
+	public void init(List<BlockingLayer> l) {
 		
 	}
 	

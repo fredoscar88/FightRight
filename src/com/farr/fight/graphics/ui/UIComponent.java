@@ -80,19 +80,24 @@ public class UIComponent {
 	}
 
 	//TODO make UIComponent abstract
-	public void onMousePress(MousePressedEvent e) {
+	public boolean onMousePress(MousePressedEvent e) {
+		return false;
 	}
 	
-	public void onMouseRelease(MouseReleasedEvent e) {
+	public boolean onMouseRelease(MouseReleasedEvent e) {
+		return false;
 	}
 	
-	public void onMouseMove(MouseMovedEvent e) {
+	public boolean onMouseMove(MouseMovedEvent e) {
+		return false;
 	}
 	
-	public void onKeyPress(KeyPressedEvent e) {
+	public boolean onKeyPress(KeyPressedEvent e) {
+		return false;
 	}
 	
-	public void onKeyRelease(KeyReleasedEvent e) {
+	public boolean onKeyRelease(KeyReleasedEvent e) {
+		return false;
 	}
 	
 	

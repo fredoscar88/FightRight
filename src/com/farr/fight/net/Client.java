@@ -19,6 +19,9 @@ public class Client {
 		NONE, INVALID_HOST, NO_RECEIVER, SOCKET_EXCEPTION
 	}
 	
+	public static final int MAX_PACKET_SIZE = 1024;
+	private byte[] databuffer = new byte[MAX_PACKET_SIZE*10];
+	
 	private String ipAddress;
 	private int port;
 	private Error errorCode = Error.NONE;
@@ -80,7 +83,24 @@ public class Client {
 		
 		sendConnectionPacket();
 		// ~ Wait for server to reply ~
+		
+		byte[] data = listen();
+		System.out.println(data[0]);
+		
 		return true;
+	}
+	
+	//Listens until one packet is received
+	private byte[] listen() {
+		DatagramPacket packet = new DatagramPacket(databuffer, MAX_PACKET_SIZE);
+		
+		try {
+			socket.receive(packet);
+		} catch (Exception e) {
+			
+		}
+		
+		return packet.getData();
 	}
 	
 	private void sendConnectionPacket() {

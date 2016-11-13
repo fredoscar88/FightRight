@@ -5,7 +5,7 @@ import java.util.List;
 
 public class BinaryWriter {
 
-	private List<Byte> buffer;;
+	private List<Byte> buffer;
 	
 	public BinaryWriter() {
 		buffer = new ArrayList<Byte>();
@@ -27,7 +27,7 @@ public class BinaryWriter {
 		}
 		
 		return result;
-		//Wouldnt the below work? Or does a get method do the inefficiency thing 
+		//Wouldn't the below work? Or does a get method do the inefficiency thing 
 //		byte[] b = new byte[buffer.size()];
 //		for (int i = 0; i < buffer.size(); i++) {
 //			b[i] = buffer.get(i);

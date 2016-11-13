@@ -100,7 +100,24 @@ public class Screen {
 				
 			}
 		}	
+	}
+	
+	public void renderSprite(int x, int y, Sprite sprite) {
 		
+		x = x - xOffset;	//puts it on the screen
+		y = y - yOffset;
+		
+		for (int tileY = 0; tileY < sprite.getHeight(); tileY++) {
+			int ya = y + tileY;
+			for (int tileX = 0; tileX < sprite.getWidth(); tileX++) {
+				int xa = x + tileX;
+				
+				if (xa < 0|| xa >= width || ya < 0 || ya >= height) continue;
+				if (sprite.pixels[tileX + tileY * sprite.getWidth()] == 0xFFFF00FF) continue;
+				pixels[xa + ya * width] = sprite.pixels[tileX + tileY * sprite.getWidth()];
+				
+			}
+		}	
 	}
 	
 	public void setOffset(int xOffset, int yOffset) {

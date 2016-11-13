@@ -32,14 +32,7 @@ public class SpriteSheet {
 //	public static SpriteSheet dummy_down = new SpriteSheet(dummy, 2 , 0, 1, 4, 32);
 //	public static SpriteSheet dummy_up = new SpriteSheet(dummy, 0 , 0, 1, 4, 32);
 //	public static SpriteSheet dummy_left = new SpriteSheet(dummy, 3 , 0, 1, 4, 32);
-//	public static SpriteSheet dummy_right = new SpriteSheet(dummy, 1 , 0, 1, 4, 32);	
-	
-	
-	
-	//----------NEUVEAU------------
-	public static SpriteSheet groundTiles = new SpriteSheet("/ground/groundSprites.png", 512);
-	
-	
+//	public static SpriteSheet dummy_right = new SpriteSheet(dummy, 1 , 0, 1, 4, 32);		
 	
 	private Sprite[] sprites;
 	

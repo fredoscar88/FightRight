@@ -15,12 +15,16 @@ import javax.swing.JFrame;
 import com.farr.Events.Event;
 import com.farr.Events.EventListener;
 import com.farr.Events.Layer;
+import com.farr.fight.entity.mob.player.Mage;
+import com.farr.fight.entity.mob.player.Player;
 import com.farr.fight.graphics.ui.UIButton;
 import com.farr.fight.input.Focus;
 import com.farr.fight.input.Keyboard;
 import com.farr.fight.input.Mouse;
 import com.farr.fight.layers.MenuLayer;
 import com.farr.fight.level.Level;
+import com.farr.fight.level.LobbyLevel;
+import com.farr.fight.net.Client;
 import com.farr.fight.util.ImageUtils;
 import com.farr.fight.util.Vector2i;
 
@@ -41,6 +45,8 @@ public class Game extends Canvas implements Runnable, EventListener {
 	public static MenuLayer optionMenu;
 	private Level testLevel;
 	//TODO create reference here to the current game layer;
+	
+	Client client;
 	
 	private BufferedImage backgroundTransparent;
 	
@@ -72,13 +78,19 @@ public class Game extends Canvas implements Runnable, EventListener {
 		backgroundTransparent = ImageUtils.replaceColor(backgroundTransparent, 0xC0FF00FF, 0xC0000000, true);
 		
 		mainMenu = new MenuLayer(ImageUtils.loadImageFromFile(IMAGE_FILES_PATH + "/bgMenu.png"), this);
-		mainMenu.addComponent(new UIButton(new Vector2i(300,250), new Vector2i(40*3,10*3), () -> {addLayer(optionMenu);}, "Options"));
-		mainMenu.addComponent(new UIButton(new Vector2i(300,320), new Vector2i(40*3,10*3), () -> {removeLayer(mainMenu); addLayer(testLevel);}, "Start"));
+		mainMenu.addComponent(new UIButton(new Vector2i(300,250), new Vector2i(42*3,10*3), () -> {addLayer(optionMenu);}, "Options"));
+		mainMenu.addComponent(new UIButton(new Vector2i(300,300), new Vector2i(42*3,10*3), () -> {removeLayer(mainMenu); addLayer(testLevel);}, "Start"));
+		mainMenu.addComponent(new UIButton(new Vector2i(300,350), new Vector2i(42*3,10*3), () -> {connectToServer();}, "Connect"));
 		
 		optionMenu = new MenuLayer(backgroundTransparent, this);
 		optionMenu.addComponent(new UIButton(new Vector2i(350,300), new Vector2i(72*3, 10*3), () -> gotoMain(), "Return to main"));
 		
-		testLevel = new Level(this);
+		Player p = new Mage(16,16);	//thing is, this will eventually become a net player.
+		
+		testLevel = new LobbyLevel(this);
+		testLevel.addClientPlayer(p);
+		testLevel.clientPlayer = p;	// TODO this is dirty and rotten
+		System.out.println(testLevel.clientPlayer);
 		
 		addLayer(mainMenu);
 
@@ -93,6 +105,15 @@ public class Game extends Canvas implements Runnable, EventListener {
 	public void gotoMain() {
 		layerStack.clear();
 		layerStack.add(mainMenu);
+	}
+	
+	//TODO update to let players choose ip
+	public void connectToServer() {
+		client = new Client("localhost", 25564);
+		if (!client.connect()) {
+			//TODO connection failed
+			System.out.println("Failed to connect");
+		}
 	}
 	
 	//synchronized - to avoid memory conflicts, or overlapping. dont want to screw up.

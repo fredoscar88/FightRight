@@ -9,8 +9,6 @@ public class Sprite {
 	
 	public int[] pixels;	//may not need this to be public
 	
-	public static Sprite grass = new Sprite(16, 1, 1, SpriteSheet.groundTiles);
-
 	
 	protected Sprite(SpriteSheet sheet, int width, int height) {
 		

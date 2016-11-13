@@ -69,10 +69,10 @@ public class ImageUtils {
 		BufferedImage result = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
 		pixels = ((DataBufferInt) result.getRaster().getDataBuffer()).getData();
 		
-		System.out.println("Image type " + image.getType());
+//		System.out.println("Image type " + image.getType());
 		image.getRGB(0, 0, width, height, pixels, 0, width);
 		
-		System.out.printf("%x", pixels[0]);
+//		System.out.printf("%x", pixels[0]);
 		
 		for (int i = 0; i < pixels.length; i++) {
 			if (pixels[i] == color) pixels[i] = replacementColor;

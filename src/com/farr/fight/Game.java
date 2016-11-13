@@ -20,6 +20,7 @@ import com.farr.fight.input.Focus;
 import com.farr.fight.input.Keyboard;
 import com.farr.fight.input.Mouse;
 import com.farr.fight.layers.MenuLayer;
+import com.farr.fight.level.Level;
 import com.farr.fight.util.ImageUtils;
 import com.farr.fight.util.Vector2i;
 
@@ -36,8 +37,9 @@ public class Game extends Canvas implements Runnable, EventListener {
 	public static int gameHeight = 188 * scale;
 	
 	public List<Layer> layerStack = new ArrayList<>();
-	private MenuLayer mainMenu;
-	private MenuLayer optionMenu;
+	public static MenuLayer mainMenu;
+	public static MenuLayer optionMenu;
+	private Level testLevel;
 	//TODO create reference here to the current game layer;
 	
 	private BufferedImage backgroundTransparent;
@@ -71,15 +73,26 @@ public class Game extends Canvas implements Runnable, EventListener {
 		
 		mainMenu = new MenuLayer(ImageUtils.loadImageFromFile(IMAGE_FILES_PATH + "/bgMenu.png"), this);
 		mainMenu.addComponent(new UIButton(new Vector2i(300,250), new Vector2i(40*3,10*3), () -> {addLayer(optionMenu);}, "Options"));
+		mainMenu.addComponent(new UIButton(new Vector2i(300,320), new Vector2i(40*3,10*3), () -> {removeLayer(mainMenu); addLayer(testLevel);}, "Start"));
 		
 		optionMenu = new MenuLayer(backgroundTransparent, this);
-		optionMenu.addComponent(new UIButton(new Vector2i(350,300), new Vector2i(72*3, 10*3), () -> {removeLayer(optionMenu);}, "Return to main"));
+		optionMenu.addComponent(new UIButton(new Vector2i(350,300), new Vector2i(72*3, 10*3), () -> gotoMain(), "Return to main"));
+		
+		testLevel = new Level(this);
 		
 		addLayer(mainMenu);
 
 //		BufferedImage transparentBG = ImageUtils.replaceColor(ImageUtils.loadImageFromFile(IMAGE_FILES_PATH + "/bgTransparent.png"), 0xC0FF00FF, 0xC0000000, true);
 //		addLayer(new MenuLayer(transparentBG));
 		
+	}
+	
+	/**
+	 * Removes all layers and returns to the main menu layer
+	 */
+	public void gotoMain() {
+		layerStack.clear();
+		layerStack.add(mainMenu);
 	}
 	
 	//synchronized - to avoid memory conflicts, or overlapping. dont want to screw up.

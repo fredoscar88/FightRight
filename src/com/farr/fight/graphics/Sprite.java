@@ -9,47 +9,8 @@ public class Sprite {
 	
 	public int[] pixels;	//may not need this to be public
 	
-	//------------------------------------------------------
-//----------MISC SPRITES-----------------//	
-	//"creating" a sprite- taking a specific region, loading it into file
-	//How we load sprites from now on, really.
-	public static Sprite grass = new Sprite(16, 0, 0, SpriteSheet.tiles);
-	public static Sprite flower = new Sprite(16, 1, 0, SpriteSheet.tiles);
-	public static Sprite rock = new Sprite(16, 2, 0, SpriteSheet.tiles);
-//	public static Sprite brick = new Sprite(16, 1, 0, SpriteSheet.tiles);
-	public static Sprite voidsprite = new Sprite(16, 0xA0D0A0);	//0x000000 for readability, as opposed to 0 or 0x0
-	
-//----------SPAWN LEVEL SPRITES-----------------//
-	
-	public static Sprite spawn_grass = new Sprite(16, 0, 0, SpriteSheet.spawnLevelTiles);
-	public static Sprite spawn_hedge = new Sprite(16, 1, 0, SpriteSheet.spawnLevelTiles);
-	public static Sprite spawn_water = new Sprite(16, 2, 0, SpriteSheet.spawnLevelTiles);
-	public static Sprite spawn_wall1 = new Sprite(16, 0, 1, SpriteSheet.spawnLevelTiles);
-	public static Sprite spawn_wall2 = new Sprite(16, 0, 2, SpriteSheet.spawnLevelTiles);
-	public static Sprite spawn_floor = new Sprite(16, 1, 1, SpriteSheet.spawnLevelTiles);
-	
-//----------PLAYER SPRITES-----------------//	
-	//we used to render the player by rendering four of the parts of 'em
-	//When using the coordinates of a sprite, the sprite grabber multiplies the coords we feed it by the size of the sprite to get the pixel location
-//	public static Sprite player_forward = new Sprite(32, 0, 5, SpriteSheet.tiles);	//default sprite for player- but I could access playerSprites
-	public static Sprite player_back = new Sprite(32, 2, 5, SpriteSheet.tiles);
+	public static Sprite grass = new Sprite(16, 1, 1, SpriteSheet.groundTiles);
 
-	public static Sprite[][] playerSprites = 	{
-													{new Sprite(32, 0, 5, SpriteSheet.tiles), new Sprite(32, 0, 6, SpriteSheet.tiles), new Sprite(32, 0, 7, SpriteSheet.tiles)},	//forward
-													{new Sprite(32, 1, 5, SpriteSheet.tiles), new Sprite(32, 1, 6, SpriteSheet.tiles), new Sprite(32, 1, 7, SpriteSheet.tiles)},	//side
-													{new Sprite(32, 2, 5, SpriteSheet.tiles), new Sprite(32, 2, 6, SpriteSheet.tiles), new Sprite(32, 2, 7, SpriteSheet.tiles)},	//back
-													{new Sprite(32, 1, 5, SpriteSheet.tiles), new Sprite(32, 1, 6, SpriteSheet.tiles), new Sprite(32, 1, 7, SpriteSheet.tiles)}		//other side
-												};
-	//	public static Sprite player_left = new Sprite(32, 3, 5, SpriteSheet.tiles);	//Going to create an invert sprite constructor in Sprite
-//	public static Sprite player_left = new Sprite(player_right);
-	
-//-----------WIZARD PROJECTILE SPRITES-------------//
-	public static Sprite projectileWizard = new Sprite(16,0, 0, SpriteSheet.wizardProjectiles);
-	public static Sprite projectileArrow = new Sprite(16,1, 1, SpriteSheet.wizardProjectiles);
-	
-//-----------PARTICLES-----------------------------//
-	public static Sprite particle_normal = new Sprite(3, 0xAAAADD);
-	//public static Sprite particle_normal = new Sprite(3, 0xAA0000);
 	
 	protected Sprite(SpriteSheet sheet, int width, int height) {
 		

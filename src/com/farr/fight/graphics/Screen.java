@@ -3,6 +3,8 @@ package com.farr.fight.graphics;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
 
+import com.farr.fight.level.Tile.Tile;
+
 public class Screen {
 
 	public int pixels[];
@@ -71,6 +73,8 @@ public class Screen {
 	}
 	
 	public void renderPoint(int x, int y, int color) {
+		x = x - xOffset;
+		y = y - yOffset;
 		if (x < 0 || x >= this.width) return;
 		if (y < 0 || y >= this.height) return;
 		pixels[x + y * width] = color;
@@ -79,6 +83,29 @@ public class Screen {
 	public void renderTextCharacter(int i, int j, Sprite sprite, int color, boolean b) {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	public void renderTile(int x, int y, Tile tile) {
+		
+		x = x - xOffset;	//puts it on the screen
+		y = y - yOffset;
+		
+		for (int tileY = 0; tileY < tile.sprite.getHeight(); tileY++) {
+			int ya = y + tileY;
+			for (int tileX = 0; tileX < tile.sprite.getWidth(); tileX++) {
+				int xa = x + tileX;
+				
+				if (xa < 0|| xa >= width || ya < 0 || ya >= height) continue;
+				pixels[xa + ya * width] = tile.sprite.pixels[tileX + tileY * tile.sprite.getWidth()];
+				
+			}
+		}	
+		
+	}
+	
+	public void setOffset(int xOffset, int yOffset) {
+		this.xOffset = xOffset;
+		this.yOffset = yOffset;
 	}
 	
 }

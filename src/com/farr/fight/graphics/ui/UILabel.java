@@ -23,8 +23,6 @@ public class UILabel extends UIComponent {
 	public UILabel(Vector2i position, String text) {
 		super(position);
 		font = new Font("Helvetica", Font.PLAIN, 32);	//default font
-//		color = new Color(0xFF00FF);	//TheCherno used pink as a reminder to set the color
-			//(TODO) we may want to use the setColor method in the super class of Component, just as programming practice, but that just may be unnecessary.
 		this.text = text;
 	}
 	

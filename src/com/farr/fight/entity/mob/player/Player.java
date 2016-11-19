@@ -26,7 +26,6 @@ public class Player extends Mob {
 	
 	//I didn't know this but apparently keyPress keeps sending events.. TODO make a fix for this
 	public void onKeyPress(KeyPressedEvent e) {
-		System.out.println("! " + e.getKeyCode());
 		switch (e.getKeyCode()) {
 		case (KeyEvent.VK_W): pressedKeys |= 0b1000; break;
 		case (KeyEvent.VK_A): pressedKeys |= 0b0100; break;

@@ -15,9 +15,6 @@ public class Screen {
 	public BufferedImage image;
 	public int[] imgPixels;
 	
-	//TODO there may be offset someday- but by default none of these things will use it, as the screen camera is static. So Im not going to worry.
-	
-	
 	public Screen(int width, int height, int scale) {
 		
 		pixels = new int[width * height];
@@ -81,7 +78,6 @@ public class Screen {
 	}
 
 	public void renderTextCharacter(int i, int j, Sprite sprite, int color, boolean b) {
-		// TODO Auto-generated method stub
 		
 	}
 	

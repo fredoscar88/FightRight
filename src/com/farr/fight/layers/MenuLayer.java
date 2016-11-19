@@ -29,7 +29,6 @@ public class MenuLayer implements BlockingLayer {
 	
 	public void addComponent(UIComponent c) {
 		menuUI.add(c);
-		c.init(menuUI);
 	}
 	
 	public void render(Graphics g) {

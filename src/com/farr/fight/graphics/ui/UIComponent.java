@@ -3,8 +3,7 @@ package com.farr.fight.graphics.ui;
 import java.awt.Color;
 import java.awt.Graphics;
 
-import com.farr.Events.types.KeyPressedEvent;
-import com.farr.Events.types.KeyReleasedEvent;
+import com.farr.Events.types.KeyTypedEvent;
 import com.farr.Events.types.MouseMovedEvent;
 import com.farr.Events.types.MousePressedEvent;
 import com.farr.Events.types.MouseReleasedEvent;
@@ -92,11 +91,15 @@ public class UIComponent {
 		return false;
 	}
 	
-	public boolean onKeyPress(KeyPressedEvent e) {
-		return false;
-	}
+//	public boolean onKeyPress(KeyPressedEvent e) {
+//		return false;
+//	}
+//	
+//	public boolean onKeyRelease(KeyReleasedEvent e) {
+//		return false;
+//	}
 	
-	public boolean onKeyRelease(KeyReleasedEvent e) {
+	public boolean onKeyType(KeyTypedEvent e) {
 		return false;
 	}
 	

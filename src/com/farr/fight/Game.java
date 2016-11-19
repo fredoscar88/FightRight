@@ -81,13 +81,16 @@ public class Game extends Canvas implements Runnable, EventListener {
 		mainMenu = new MenuLayer(ImageUtils.loadImageFromFile(IMAGE_FILES_PATH + "/bgMenu.png"), this);
 		mainMenu.addComponent(new UIButton(new Vector2i(300,250), new Vector2i(42*3,10*3), () -> {addLayer(optionMenu);}, "Options"));
 		mainMenu.addComponent(new UIButton(new Vector2i(300,300), new Vector2i(42*3,10*3), () -> {removeLayer(mainMenu); addLayer(testLevel);}, "Start"));
-		mainMenu.addComponent(new UIButton(new Vector2i(300,350), new Vector2i(42*3,10*3), () -> {connectToServer();}, "Connect"));
+//		mainMenu.addComponent(new UIButton(new Vector2i(300,350), new Vector2i(42*3,10*3), () -> {connectToServer();}, "Connect"));
 		
 		//TODO have the client connection and all client related stuff running on a separate thread. Or atleast have a way to cancel out of Connecting if it isn't connecting..
 		//TODO Have the client listen on a separate thread that can spawn events to influence the main program.
 		
-		UITextField tf = new UITextField(new Vector2i(450,250), 150, "Enter text here");
+		UITextField tf = new UITextField(new Vector2i(450, 250), 150, "Enter text here");
+		UITextField tf2 = new UITextField(new Vector2i(450, 290), 150, "lol text");
+		
 		mainMenu.addComponent(tf);
+		mainMenu.addComponent(tf2);
 		
 		optionMenu = new MenuLayer(backgroundTransparent, this);
 		optionMenu.addComponent(new UIButton(new Vector2i(350,300), new Vector2i(72*3, 10*3), () -> gotoMain(), "Return to main"));
@@ -212,7 +215,7 @@ public class Game extends Canvas implements Runnable, EventListener {
 		
 		g.setColor(new Color(0x0));
 		g.setFont(new Font("Verdana", Font.PLAIN, 20));
-		g.drawString("This screen should not be visible! Restart game!", 5, 20);
+		g.drawString("Pink screen rendered behind everything", 5, 20);
 		
 		for (int i = 0; i < layerStack.size(); i++) {
 			//LAYERS ONLY USE ONE OF SCREEN, OR G. NEVER BOTH. This tells me they are separate layers- meaning I should split the interface up into two different

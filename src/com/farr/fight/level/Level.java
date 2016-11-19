@@ -175,7 +175,7 @@ public class Level implements BlockingLayer {
 	}
 	
 	private void onMousePress(MousePressedEvent e) {
-		System.out.println(e.getButton());
+//		System.out.println(e.getButton());
 	}
 
 	@Override

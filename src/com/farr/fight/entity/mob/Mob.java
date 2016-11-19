@@ -43,7 +43,6 @@ public class Mob extends Entity {
 		y += ya;
 	}
 	
-	//TODO Verify
 	public void render(Screen screen) {
 		screen.renderSprite(((int) x) - sprite.getWidth()/2, ((int) y) - sprite.getHeight()/2, sprite);
 	}

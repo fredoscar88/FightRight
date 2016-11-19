@@ -38,7 +38,7 @@ public class ImageUtils {
 				int a = (int) Byte.toUnsignedInt(originalPixels[offset++]);	//whew this all has to do with how the different color channels are used with DataBufferByte
 				int b = (int) Byte.toUnsignedInt(originalPixels[offset++]);	//	So, the TYPE of the BufferedImage original == BufferedImage.TYPE_BYTE_ABGR
 				int g = (int) Byte.toUnsignedInt(originalPixels[offset++]);	//I frankly don't have a good idea of why each pixel in this array stores it's channels, well, collated
-				int r = (int) Byte.toUnsignedInt(originalPixels[offset++]);	//	like this- It's not << 24 for alpha, it is in fact every four bits is one of the alpha bits. I think... (TODO)
+				int r = (int) Byte.toUnsignedInt(originalPixels[offset++]);	//	like this- It's not << 24 for alpha, it is in fact every four bits is one of the alpha bits. Yeah. This is a bit weid but I've made my peace and accept it.
 
 				r = clamp(r + amount, 0, 0xFF);
 				g = clamp(g + amount, 0, 0xFF);
@@ -112,7 +112,6 @@ public class ImageUtils {
 			image = ImageIO.read(ImageUtils.class.getResource(path));
 			return image;
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return null;
 		}

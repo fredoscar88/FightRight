@@ -169,7 +169,7 @@ public class Sprite {
 		int[] result = new int[width * height];	//NEW integer array!
 		
 		//again, negative angle here
-		//uh.... (TODO) git understood
+		//uh.... (TO-DO) git understood
 		double nx_x = rotationX(-angle, 1.0, 0.0);	//y is cancelled out
 		double nx_y = rotationY(-angle, 1.0, 0.0);
 		double ny_x = rotationX(-angle, 0.0, 1.0);	//y is cancelled out

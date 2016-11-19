@@ -64,7 +64,7 @@ public class SpriteSheet {
 			}
 		}
 		
-		//This can go... do a rude thing to itself. (TODO), git understood, but frankly I think I understand it better than TheCherno! I debugged it better (well quicker)!
+		//This can go... do a rude thing to itself. (TO-DO), git understood, but frankly I think I understand it better than TheCherno! I debugged it better (well quicker)!
 		int frame = 0;
 		sprites = new Sprite[width * height];
 		for (int ya = 0; ya < height; ya++) {
@@ -73,7 +73,7 @@ public class SpriteSheet {
 				
 				for ( int y0 = 0; y0 < spriteSize; y0++) {
 					for (int x0 = 0; x0 < spriteSize; x0++) {
-						spritePixels[x0 + y0 * spriteSize] = pixels[(x0 + xa * spriteSize) + (y0 + ya * spriteSize) * WIDTH];	//(TODO) Take some time to understand.
+						spritePixels[x0 + y0 * spriteSize] = pixels[(x0 + xa * spriteSize) + (y0 + ya * spriteSize) * WIDTH];	//(TO-DO) Take some time to understand.
 						/*
 						 * Here we are, for every sprite in a (sub) spritesheet, since this is the only constructor that supports what we're doing, (height,width in sprite precision),
 						 * populate an array of pixels that will be used to create a new sprite. add new sprite to sprites[] array.
@@ -88,7 +88,7 @@ public class SpriteSheet {
 		}
 		//wow what I have below is a more mathematical approach, as opposed to the above, practical approach, which does the logical thing, find the appropriate x, y in our old 
 		//	sheet, feed to our new one, while this one uses i to determine those, using the given parameters.
-		//(TODO I did test this, did not work out. :c
+		//(TO-DO I did test this, did not work out. :c
 //		for (int i = 0; i < WIDTH * HEIGHT; i++) {	//NEVERMIND MY MORE COMPLICATED BUT ALSO, I ASSUME, CORRECT APPROACH
 //			int newX = (i % w) + xx;	//Determines the x value, in the spritesheet we're generating from, of the i-th pixel in the new one.
 //			int newY = (i / h) + yy;	//Determines the y value, in the spritesheet we're generating from, of the i-th pixel in the new one.
@@ -143,12 +143,12 @@ public class SpriteSheet {
 											 * NOTE: a quick google has shown the getResource does indeed work with a path relative to the code base, NOT file paths.
 											 * Specifically, Im guessing, relative to SpriteSheet- or well, the whole project, I dont know why SpriteSheet was specifically invoked
 											 */
-			BufferedImage image = ImageIO.read(SpriteSheet.class.getResource(path));	//whew (TODO) get understood; ep 19 of TheCherno. ~9-10 min mark
+			BufferedImage image = ImageIO.read(SpriteSheet.class.getResource(path));	//whew (TO-DO) get understood; ep 19 of TheCherno. ~9-10 min mark
 			//Buffered Image loads the alpha channel, too
 			System.out.println(" succeeded!");
 			width = image.getWidth();
 			height = image.getHeight();
-			image.getRGB(0, 0, width, height, pixels, 0, width);	//(TODO) get understood. This puts the image pixels into the pixels array
+			image.getRGB(0, 0, width, height, pixels, 0, width);
 			
 		} catch (IOException e) {
 			e.printStackTrace();

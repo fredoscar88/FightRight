@@ -9,7 +9,7 @@ import com.farr.fight.util.Vector2i;
 
 public class UIProgressBar extends UIComponent {
 
-	//So I am going to be modifiying thecherno's implementation... (TODO)
+	//So I am going to be modifiying thecherno's implementation... maybe. I need to revisit this crap when I get around to how I want the game to feel. Removed the to-do flag
 	private double progress;	//0.0 to 1.0
 //	private double progressMax;	//default values are 100
 //	private double progressFill;	//percentage value scaled to the size of the progress bar
@@ -45,12 +45,12 @@ public class UIProgressBar extends UIComponent {
 
 	public void update() {
 //		if (progressMax != 0.0) progressFill = progress / progressMax;	// IGNORE ME yes, the multiplication must happen before the division, since we're using integer math here
-		//(TODO) note bien; the cherno says progress stuff usually uses doubles. like between 0.0 and 1.0. which is cool I guess.
+		//(TO-DO) note bien; the cherno says progress stuff usually uses doubles. like between 0.0 and 1.0. which is cool I guess.
 		//I was previously using the Henry Farr way of doing things, that is, the mathsy, not always-best-readable way, by multiplying progress by size and then dividing by progMax
-		//	this is not THE BEST for precision but meh. I might switch back to my way! (TODO) TODO TODO TODO TODO because these progress bars are PROBABLY only going to deal in ints anyway
+		//	this is not THE BEST for precision but meh. I might switch back to my way! (TO-DO) TO-DO TO-DO TO-DO TO-DO because these progress bars are PROBABLY only going to deal in ints anyway
 		//REASON WHY THIS IS BAD: (AND IM GOING TO KEEP THE MULTIPLE TODOS HERE..)
 		//	UIProgressBar is for displaying progress. Dassit. We shouldnt be calculating stuff in here, that would be a non-UI class for progress bar, if you read me.
-		//	The way we have this implemented now, UIProgressBar should just. be. displayin.
+		//	The way we have this implemented now, UIProgressBar should just. be. displayin. "Yeah what he said!" ~me from the future, who is going through and clearing up TO-DOs
 	}
 
 	public void render(Graphics g) {

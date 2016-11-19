@@ -5,24 +5,22 @@ import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.farr.Events.BlockingLayer;
 import com.farr.Events.Event;
 import com.farr.Events.Event.Type;
 import com.farr.Events.EventDispatcher;
 import com.farr.Events.Layer;
-import com.farr.Events.BlockingLayer;
-import com.farr.Events.types.KeyPressedEvent;
-import com.farr.Events.types.KeyReleasedEvent;
+import com.farr.Events.types.KeyTypedEvent;
 import com.farr.Events.types.MouseMovedEvent;
 import com.farr.Events.types.MousePressedEvent;
 import com.farr.Events.types.MouseReleasedEvent;
 import com.farr.fight.util.Vector2i;
 
+//TODO Hotdiggity I hope we never have to scale our UI... or if we do, then we git smart about how it will work.
 public class UIPanel extends UIComponent implements Layer {
 	
 	private List<UIComponent> components = new ArrayList<UIComponent>();
 	private List<UIFocusable> focusableComponents = new ArrayList<>();
-	
-	//private Color color;
 	
 	public UIPanel(Vector2i position) {
 		super(position);
@@ -31,7 +29,7 @@ public class UIPanel extends UIComponent implements Layer {
 	
 	public UIPanel(Vector2i position, Vector2i size) {
 		super(position);
-		this.position = position;	//it may be that we'll want to automatically scale these vectors by 3. Or not, actually no, lets not because we might want precision
+		this.position = position;
 		this.size = size;
 		color = new Color(0xAACACACA, true);	//surely we can make this a parameter, somewhere. Also this is a default param.
 	}
@@ -44,20 +42,23 @@ public class UIPanel extends UIComponent implements Layer {
 	
 	public void addFocusable(UIFocusable c) {
 		focusableComponents.add(c);
+		System.out.println("Focusable elements " + focusableComponents.size());
+				
 	}
 	
 	public void setFocus(UIFocusable f) {
 		for (UIFocusable c : focusableComponents) {
 			c.removeFocus();
-			if (c.equals(f))
+			if (c.equals(f)) {
 				c.giveFocus();
+			}
 		}
 	}
 	
 	public void setPosition(Vector2i position) {
 		this.position = position;
 		for (UIComponent component : components) {	//Hey now we're thinking like programmers
-			component.setOffset(this.position);
+			component.setOffset(this.position);	//Updates each of the component's positions with the set position.
 		}
 	}
 	
@@ -85,17 +86,16 @@ public class UIPanel extends UIComponent implements Layer {
 		return false;
 	}
 	
-	public boolean onKeyPress(KeyPressedEvent e) {
-		for (UIComponent component : components) {
-			if (component.onKeyPress(e))
-				return true;
-		}
-		return false;
-	}
-	
-	public boolean onKeyRelease(KeyReleasedEvent e) {
-		for (UIComponent component : components) {
-			if (component.onKeyRelease(e))
+	public int increment;
+	/**
+	 * Distributes a keytyped event to the currently focused focusable component.
+	 * @param e The keypressed event to sent
+	 */
+	public boolean onKeyType(KeyTypedEvent e) {
+		
+		for (UIFocusable focusable : focusableComponents) {
+			if (!focusable.getFocused()) continue;
+			if (focusable.onKeyType(e))
 				return true;
 		}
 		return false;
@@ -122,8 +122,8 @@ public class UIPanel extends UIComponent implements Layer {
 		dispatcher.dispatch(Type.MOUSE_MOVED, (Event e) -> onMouseMove((MouseMovedEvent) e));
 		dispatcher.dispatch(Type.MOUSE_PRESSED, (Event e) -> onMousePress((MousePressedEvent) e));
 		dispatcher.dispatch(Type.MOUSE_RELEASED, (Event e) -> onMouseRelease((MouseReleasedEvent) e));
-		dispatcher.dispatch(Type.KEY_PRESSED, (Event e) -> onKeyPress((KeyPressedEvent) e));
-		dispatcher.dispatch(Type.KEY_RELEASED, (Event e) -> onKeyRelease((KeyReleasedEvent) e));
+		dispatcher.dispatch(Type.KEY_TYPED, (Event e) -> onKeyType((KeyTypedEvent) e));
+		
 	}
 
 	public void init(List<BlockingLayer> l) {

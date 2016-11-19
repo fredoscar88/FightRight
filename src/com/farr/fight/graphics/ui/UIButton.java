@@ -4,13 +4,11 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Point;
 import java.awt.Rectangle;
-import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 
 import com.farr.Events.types.MouseMovedEvent;
 import com.farr.Events.types.MousePressedEvent;
 import com.farr.Events.types.MouseReleasedEvent;
-import com.farr.fight.input.Mouse;
 import com.farr.fight.util.Vector2i;
 
 //TODO make buttons and other "interactable" UI elements implement UIFocusable
@@ -20,7 +18,6 @@ public class UIButton extends UIComponent {
 	private UIActionListener actionListener;
 	
 	private Rectangle rect;
-	
 	
 	private boolean inside = false;
 	private boolean pressed = false;
@@ -57,7 +54,7 @@ public class UIButton extends UIComponent {
 		label.setColor(0x444444);
 		label.active = false;
 
-		init();
+//		init();
 
 	}
 	
@@ -66,12 +63,12 @@ public class UIButton extends UIComponent {
 		this.actionListener = actionListener;
 		
 		setImage(image);
-		init();
+//		init();
 		
 	}
 	
 	
-	//TODO Bad practice here, to have two init methods.
+	@Deprecated //moved to the OTHER init method, the one I should be using.
 	private void init() {
 		setColor(0xAAAAAA);
 		
@@ -86,6 +83,9 @@ public class UIButton extends UIComponent {
 		}
 		
 		rect = new Rectangle(getAbsolutePosition().x, getAbsolutePosition().y, size.x, size.y);
+		
+		setColor(0xAAAAAA);
+		buttonListener = new UIButtonListener();
 		
 	}
 		

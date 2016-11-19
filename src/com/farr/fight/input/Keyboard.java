@@ -7,6 +7,7 @@ import com.farr.Events.Event;
 import com.farr.Events.EventListener;
 import com.farr.Events.types.KeyPressedEvent;
 import com.farr.Events.types.KeyReleasedEvent;
+import com.farr.Events.types.KeyTypedEvent;
 
 public class Keyboard implements KeyListener {
 
@@ -29,22 +30,21 @@ public class Keyboard implements KeyListener {
 	}
 	
 	public void keyPressed(KeyEvent e) {
-		keys[e.getKeyCode()] = true;
+//		keys[e.getKeyCode()] = true;
 		Event event = new KeyPressedEvent(e.getKeyCode());
 		eventListener.onEvent(event);
 	}
 
 	public void keyReleased(KeyEvent e) {
-		keys[e.getKeyCode()] = false;
+//		keys[e.getKeyCode()] = false;
 		Event event = new KeyReleasedEvent(e.getKeyCode());
 		eventListener.onEvent(event);
 	}
 
-	/**
-	 * Unused
-	 */
 	public void keyTyped(KeyEvent e) {
-		
+//		keys[e.getKeyCode()] = false;
+		Event event = new KeyTypedEvent(e.getKeyChar());
+		eventListener.onEvent(event);
 	}
 
 }
